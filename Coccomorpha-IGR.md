@@ -1,11 +1,6 @@
----
-title: "Vea&Grimaldi-Coccomorpha divergence time IGR"
-author: "Isabelle Vea"
-date: "May 3, 2015"
-output:
-  html_document:
-    keep_md: yes
----
+# Vea&Grimaldi-Coccomorpha divergence time IGR
+Isabelle Vea  
+May 3, 2015  
 ##Summary
 This file includes the script used in Vea and Grimaldi to calculate the IGR model priors and was modified from the original script in Ronquist et al. 2012. If you use this script, please cite Ronquist et al., 2012
 
@@ -26,24 +21,58 @@ For this analysis you will need the following packages
 
 To see the original script from Ronquist et al., 2012
 
-```{r,results='hide'}
+
+```r
 download.file(url="http://datadryad.org/bitstream/handle/10255/dryad.37785/R-Scripts_PriorFitting-RelaxedClockModels.r?sequence=1", destfile="ronquist.R", method="curl")
 ```
 
 Version of R
-```{r, echo=FALSE}
-R.Version()$version.string
+
+```
+## [1] "R version 3.1.2 (2014-10-31)"
 ```
 
 Loading packages
-```{r,results='hide'}
+
+```r
 library(phangorn)
+```
+
+```
+## Loading required package: ape
+## 
+## Attaching package: 'phangorn'
+## 
+## The following object is masked from 'package:ape':
+## 
+##     as.prop.part
+```
+
+```r
 library(phyloch) # can be downloaded at http://www.christophheibl.de/Rpackages.html
+```
+
+```
+## Loading required package: colorspace
+## Loading required package: XML
+```
+
+```r
 library(gplots)
 ```
 
+```
+## 
+## Attaching package: 'gplots'
+## 
+## The following object is masked from 'package:stats':
+## 
+##     lowess
+```
+
 Function and script modified from Ronquist et al., 2012
-```{r, results='hide', warning=FALSE}
+
+```r
 #functions
 compare.branches<-function(tree1,tree2,outgroup=""){
   if (length(tree1$edge)<length(tree2$edge)){
@@ -117,7 +146,8 @@ list.descendents.of<-function(tree,nodeIndex){
 }
 ```
 
-```{r,warning=FALSE}
+
+```r
 #Only the function definitions were kept from the `ronquist.R`, command lines were as follow:
 #Importing nonclock and strictclock trees
 tree1<-read.nexus("nonclock.con.tre")
@@ -126,12 +156,18 @@ tree2<-read.nexus("strictclock.con.tre")
 BrlensMatrix<-compare.branches(tree1,tree2,outgroup="Acyrthosiphon_pisum")
 ```
 
-```{r}
+
+```r
 BrlensMatrix2<-na.omit(BrlensMatrix)
 #Histograms of branch length distribution
 layout(matrix(1:2,1,2))
 hist(BrlensMatrix2[,1],main="non-clock branch lengths",col="grey",breaks=20)
 hist(BrlensMatrix2[,2],main="strict-clock branch lengths",col="grey",breaks=20)
+```
+
+![](Coccomorpha-IGR_files/figure-html/unnamed-chunk-6-1.png) 
+
+```r
 #plot of nonclock tree branch length against strict clock tree
 plot(BrlensMatrix2[,2],BrlensMatrix2[,1],main="comparison of clock versus non-clock branch lengths",xlab="strict-clock brlens",ylab="non-clock brlens",xlim=c(0,max(BrlensMatrix2)),ylim=c(0,max(BrlensMatrix2)))
 #calculating regression both tree branch lenghts
@@ -150,19 +186,38 @@ for (i in 1:length(BrlensMatrix2[,2])){
 plot(BrlensMatrix2[,2],obsVariance,main="variance in branch lengths",xlab="t[i]",ylab="(b[i]-t[i])^2")
 regression2<-lm(obsVariance~BrlensMatrix2[,2]-1)
 abline(coef=c(0,regression2$coefficients))
+```
+
+![](Coccomorpha-IGR_files/figure-html/unnamed-chunk-6-2.png) 
+
+```r
 regression2$coefficients
+```
+
+```
+## BrlensMatrix2[, 2] 
+##         0.02702862
 ```
 
 The median of the slope was used as the variance for the IGR model
 
-```{r}
 
+```r
 #take slope as median -> calculate mean (=rate) for exp distr of IBR model
 as.numeric(regression2$coefficients)/log(2)
+```
 
+```
+## [1] 0.03899406
+```
+
+```r
 a<-list.descendents.of(tree1,tree1$edge[which(obsVariance==max(obsVariance))+1,2])  #+1 because root branch was not sampled by function ?compare.branches?!
 tree1$tip.label[a]
+```
 
+```
+## [1] "Puto_albicans"   "Puto_yuccae"     "Puto_mexicanus"  "Puto_kosztarabi"
 ```
 
 
