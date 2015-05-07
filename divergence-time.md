@@ -1,16 +1,18 @@
+#Electronic Supplementary Materials: Analyses workflow of Vea and Grimaldi 
+
+#Title: A time-scale for scales: the divergence of major lineages of Coccomorpha (Insecta: Hemiptera) was much earlier than that of their modern angiosperm hosts
+
 ---
-title: 'Electronic Supplementary Materials: Analyses workflow of Vea and Grimaldi feeding Coccoidea (Hemiptera) in the light of amber inclusions' : A time scale for scales: divergence time and diversification rates of the plant-sap
-output: html_document
----
 
 
-#Summary
-This supplementary material document details the analyses performed for the results presented in Vea and Grimaldi (submitted). A Time scale for scales: divergence time and diversification rates of the plant-sap feeding Coccoidea (Hemiptera) in the light of amber inclusions. 
-It includes command lines used in the MrBayes vers. 3.2.3 analyses, as well as command lines for the R analyses. Finally, this file also includes supplementary figures referred in the main paper.
+##Summary
+This supplementary material document details the analyses performed for the results presented in Vea and Grimaldi (submitted). A time-scale for scales: the divergence of major lineages of Coccomorpha (Insecta: Hemiptera) was much earlier than that of their modern angiosperm hosts. 
 
-#Data
+This file includes all command lines used in the MrBayes vers. 3.2.3 analyses.
+ 
+##Data
 
-  - Combined dataset downloadable in Dryad (url to be added after manuscrip accepted): This dataset includes XX taxa, with 174 morphological characters and xx aligned nucleotides including 18S, 28S and EF-1, in nexus format.
+  - Combined dataset downloadable in Dryad (url to be added after manuscript accepted): This dataset includes 121 taxa, with 174 morphological characters and 3731 aligned nucleotides from the nuclears markers 18S, 28S and EF-1, in nexus format.
   
 The dataset includes the following command line block, defining the analysis basic settings:
 
@@ -115,10 +117,10 @@ constraint xylococcidae -1 = 77 78 121;
 
 ```
 
-#Analyses
-All MrBayes 3.2.X analyses were perfomed through the Cipres Gateway Portal (url) with four replicate runs of 10-20 million generations.
+##Analyses
+All MrBayes 3.2.3 analyses were perfomed through the Cipres Gateway Portal with four replicate runs of 10-20 million generations.
 
-##Preliminary phylogenetic analyses 
+###Preliminary phylogenetic analyses 
 Using the combined dataset nexus file, the following were added command lines within the `begin mrbayes;` block (respectively for each analysis).
 
 1. Non-clock analysis
@@ -151,11 +153,11 @@ After performing `sumt` for both preliminary analyses, the following outputs wer
   - nonclock.con.tre
   - strictclock.con.tre
 
-##IGR prior values
+###IGR prior values
 To obtain the value for the IGR model, we used the R script from Ronquist et al. (2012). The original script had to have the outgroup replaced to Acyrthosiphon_pisum. For details on the analysis performed in R deposited in Github [here] (https://github.com/zourloubidou/Coccomorpha-divergence-time/blob/master/Coccomorpha-IGR.md). The prior values obtained to set the IGR model are summarized in Electronic Supplementary Material.
 
 
-##Calibrated analyses
+###Node-dating analyses
 The following command lines were added to set the IGR model priors for both node-dating and tip-dating analyses.
 
 
@@ -209,7 +211,7 @@ calibrate xylococcidae=offsetexp(135,140); [12]
 10. ND-J: excluding calibration 11
 11. ND-K: excluding calibration 12
 
-##Total evidence analyses
+###Total evidence (tip-dating) analyses
 Four total evidence analyses were performed with 43 prior ages set as fixed for fossil terminals (see Table S2 for fossil ages), as well as the alternative options:
 
 1. TD-A: 43 fixed age priors at fossil tips, and a node prior set at the root following an off set exponential distribution
@@ -297,6 +299,8 @@ sump nruns=4;
 sumt contype=allcompat;
 end;
 ```
+
+All trees obtained from MrBayes analyses are listed in README and are found in the repository as nexus files (can be viewed with Figtree.)
 
 Link to LTT plot workflow [here](https://github.com/zourloubidou/Coccomorpha-divergence-time/blob/master/LLTplots.md)
 
