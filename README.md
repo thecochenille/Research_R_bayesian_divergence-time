@@ -42,5 +42,8 @@ This repository includes the comman lines used for MrBayes analyses (divergence 
 4. `LTTplots.md`: workflow and R script to obtain the LTT plots discussed in the Electronic Supplementary Material. 
 
 
+#Where to start?
+Although each file can be viewed individually by following the manuscript and EMS, the best way to examine the worklow of the analyses is to start reading [divergence-time.md](https://github.com/zourloubidou/Coccomorpha-divergence-time/blob/master/divergence-time.md).
+
 #Reference
 Vea I. and D. Grimaldi. (submitted) A time-scale for scales: the divergence of major lineages of Coccomorpha (Insecta: Hemiptera) was much earlier than that of their modern angiosperm hosts.

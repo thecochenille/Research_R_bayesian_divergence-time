@@ -152,7 +152,7 @@ After performing `sumt` for both preliminary analyses, the following outputs wer
   - strictclock.con.tre
 
 ##IGR prior values
-To obtain the value for the IGR model, we used the R script from Ronquist et al. (2012). The original script had to have the outgroup replaced to Acyrthosiphon_pisum. For details on the analysis performed in R deposited in Github [here] (url to github IGR). The prior values obtained to set the IGR model are summarized in Table SX of Electronic Supplementary Material.
+To obtain the value for the IGR model, we used the R script from Ronquist et al. (2012). The original script had to have the outgroup replaced to Acyrthosiphon_pisum. For details on the analysis performed in R deposited in Github [here] (https://github.com/zourloubidou/Coccomorpha-divergence-time/blob/master/Coccomorpha-IGR.md). The prior values obtained to set the IGR model are summarized in Electronic Supplementary Material.
 
 
 ##Calibrated analyses
@@ -297,6 +297,8 @@ sump nruns=4;
 sumt contype=allcompat;
 end;
 ```
+
+Link to LTT plot workflow [here](https://github.com/zourloubidou/Coccomorpha-divergence-time/blob/master/LLTplots.md)
 
 
 
