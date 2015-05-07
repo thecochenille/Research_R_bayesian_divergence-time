@@ -12,30 +12,36 @@ This file includes the script used in Vea and Grimaldi to calculate the IGR mode
 Two nexus files are included in the folder : a strict clock and non clock tree obtained from MrBayes 3.2.3 for the Recent sampling of Coccomorpha in Vea and Grimaldi. For more details see the paper.
 
   -nonclock.con.tre
+  
   -strictclock.con.tre
   
 For this analysis you will need the following packages
-  - phangorn
-  - phyloch
-  - gplots
+  - phangorn (available in CRAN)
+  
+  - phyloch: can be downloaded [here] (http://www.christophheibl.de/Rpackages.html)
+  
+  - gplots (available in CRAN)
 
 To see the original script from Ronquist et al., 2012
 
-```{r}
+```{r,results='hide'}
 download.file(url="http://datadryad.org/bitstream/handle/10255/dryad.37785/R-Scripts_PriorFitting-RelaxedClockModels.r?sequence=1", destfile="ronquist.R", method="curl")
 ```
 
-
+Version of R
 ```{r, echo=FALSE}
 R.Version()$version.string
 ```
 
-```{r}
- 
+Loading packages
+```{r,results='hide'}
 library(phangorn)
-library(phyloch)
+library(phyloch) # can be downloaded at http://www.christophheibl.de/Rpackages.html
 library(gplots)
+```
 
+Function and script modified from Ronquist et al., 2012
+```{r, results='hide', warning=FALSE}
 #functions
 compare.branches<-function(tree1,tree2,outgroup=""){
   if (length(tree1$edge)<length(tree2$edge)){
@@ -107,16 +113,18 @@ list.descendents.of<-function(tree,nodeIndex){
   }
   return(tips[is.desc])
 }
+```
 
-
-
-
+```{r,warning=FALSE}
 #Only the function definitions were kept from the `ronquist.R`, command lines were as follow:
 #Importing nonclock and strictclock trees
 tree1<-read.nexus("nonclock.con.tre")
 tree2<-read.nexus("strictclock.con.tre")
 #Comparing branch lengths from both trees, the function was defined in ronquist.R modified script
 BrlensMatrix<-compare.branches(tree1,tree2,outgroup="Acyrthosiphon_pisum")
+```
+
+```{r}
 BrlensMatrix2<-na.omit(BrlensMatrix)
 #Histograms of branch length distribution
 layout(matrix(1:2,1,2))
@@ -141,6 +149,11 @@ plot(BrlensMatrix2[,2],obsVariance,main="variance in branch lengths",xlab="t[i]"
 regression2<-lm(obsVariance~BrlensMatrix2[,2]-1)
 abline(coef=c(0,regression2$coefficients))
 regression2$coefficients
+```
+
+The median of the slope was used as the variance for the IGR model
+
+```{r}
 
 #take slope as median -> calculate mean (=rate) for exp distr of IBR model
 as.numeric(regression2$coefficients)/log(2)
@@ -152,5 +165,4 @@ tree1$tip.label[a]
 
 
 ##References
-Ronquist et al
-Vea and Grimaldi
+Ronquist, Fredrik, et al. "A total-evidence approach to dating with fossils, applied to the early radiation of the Hymenoptera." Systematic Biology 61.6 (2012): 973-999.
