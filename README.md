@@ -16,23 +16,23 @@ This repository includes the comman lines used for MrBayes analyses (divergence 
 #Files included
 1. Nexus files including all topologies obtained with the MrBayes command lines presented in this repository. These are:
 	- `nonclock.con.tre`: from preliminary MrBayes analysis to be used in `Coccomorpha-IGR.Rmd`
-	- `strictclock.con.tre`
-	- `ND-A-offsetexp.tre`
-	- `ND-A-lognormal.tre`
-	- `ND-A-noroot.tre`
-	- `ND-B.tre`
-	- `ND-B.tre`
-	- `ND-B.tre`
-	- `ND-B.tre`
-	- `ND-B.tre`
-	- `ND-B.tre`
-	- `ND-B.tre`
-	- `ND-B.tre`
-	- `ND-B.tre`
-	- `ND-B.tre`
-	- `TD-offsetexp.tre`
-	- `TD-lognormal.tre`
-	- `TD-noroot.tre`
+	- `strictclock.con.tre`: from preliminary MrBayes analysis to be used in `Coccomorpha-IGR.Rmd`
+	- `ND-A-offsetexp.tre` : used in `LTTplots.Rmd`
+	- `ND-A-lognormal.tre`: used in `LTTplots.Rmd`
+	- `ND-A-noroot.tre`: used in `LTTplots.Rmd`
+	- `ND-B.tre`: used in `LTTplots.Rmd`
+	- `ND-B.tre`: used in `LTTplots.Rmd`
+	- `ND-B.tre`: used in `LTTplots.Rmd`
+	- `ND-B.tre`: used in `LTTplots.Rmd`
+	- `ND-B.tre`: used in `LTTplots.Rmd`
+	- `ND-B.tre`: used in `LTTplots.Rmd`
+	- `ND-B.tre`: used in `LTTplots.Rmd`
+	- `ND-B.tre`: used in `LTTplots.Rmd`
+	- `ND-B.tre`: used in `LTTplots.Rmd`
+	- `ND-B.tre`: used in `LTTplots.Rmd`
+	- `TD-offsetexp.tre`: used in `LTTplots.Rmd`
+	- `TD-lognormal.tre`: used in `LTTplots.Rmd`
+	- `TD-noroot.tre`: used in `LTTplots.Rmd`
 
 
 2. `Coccomorpha-IGR.md`: workflow and modified script to estimate IGR model (the necessary topologies from preliminary analyses are described in the `divergence-time.Rmd` file below).
