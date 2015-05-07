@@ -176,7 +176,7 @@ prset clockratepr = lognorm(-6.060527447,0.051884487);
 Eleven different calibrated analyses were run in MrBayes with different calibration prior combinaisons. Information on calibrations priors are summarized in Table S3.
 
 
-1. ND-A: all 12 calibrations with the following command line in MrBayes 3.2.3
+1. ND-A-offsetexp: all 12 calibrations with the following command line in MrBayes 3.2.3
 
 
 ```
@@ -211,12 +211,19 @@ calibrate xylococcidae=offsetexp(135,140); [12]
 10. ND-J: excluding calibration 11
 11. ND-K: excluding calibration 12
 
+Two additional analyses were performed by changing the root prior as follow:
+
+12. ND-A-lognormal: all node calibrations and root calibration following a lognormal distribution.
+13. ND-A-noroot:all node calibrations without root calibration.
+
+
 ###Total evidence (tip-dating) analyses
 Four total evidence analyses were performed with 43 prior ages set as fixed for fossil terminals (see Table S2 for fossil ages), as well as the alternative options:
 
-1. TD-A: 43 fixed age priors at fossil tips, and a node prior set at the root following an off set exponential distribution
-2. TD-B: 43 fixed age priors at fossil tips only
-3. TD-C: 43 fixed age priors at fossil tips, and a node prior set at the root following a lognormal distribution
+1. TD-offsetexp: 43 fixed age priors at fossil tips, and a node prior set at the root following an off set exponential distribution
+
+2. TD-noroot: 43 fixed age priors at fossil tips only
+3. TD-lognormal: 43 fixed age priors at fossil tips, and a node prior set at the root following a lognormal distribution
 
 
 The following command lines were added, replacing the node calibration settings from above, with last two command lines removed according to analysis:
