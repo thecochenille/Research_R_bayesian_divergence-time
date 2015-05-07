@@ -1,0 +1,156 @@
+---
+title: "Vea&Grimaldi-Coccomorpha divergence time IGR"
+author: "Isabelle Vea"
+date: "May 3, 2015"
+output: html_document
+---
+##Summary
+This file includes the script used in Vea and Grimaldi to calculate the IGR model priors and was modified from the original script in Ronquist et al. 2012. If you use this script, please cite Ronquist et al., 2012
+
+
+##Files and packages
+Two nexus files are included in the folder : a strict clock and non clock tree obtained from MrBayes 3.2.3 for the Recent sampling of Coccomorpha in Vea and Grimaldi. For more details see the paper.
+
+  -nonclock.con.tre
+  -strictclock.con.tre
+  
+For this analysis you will need the following packages
+  - phangorn
+  - phyloch
+  - gplots
+
+To see the original script from Ronquist et al., 2012
+
+```{r}
+download.file(url="http://datadryad.org/bitstream/handle/10255/dryad.37785/R-Scripts_PriorFitting-RelaxedClockModels.r?sequence=1", destfile="ronquist.R", method="curl")
+```
+
+
+```{r, echo=FALSE}
+R.Version()$version.string
+```
+
+```{r}
+ 
+library(phangorn)
+library(phyloch)
+library(gplots)
+
+#functions
+compare.branches<-function(tree1,tree2,outgroup=""){
+  if (length(tree1$edge)<length(tree2$edge)){
+    reftree<-tree1
+    testtree<-tree2
+  } else {
+    reftree<-tree2
+    testtree<-tree1
+  }
+  maxNbBr<-length(reftree$edge)
+  BrlenCompMatrix<-matrix(rep(NA,maxNbBr*2),nrow=maxNbBr,ncol=2)
+  
+  childRef<-reftree$edge[,2]
+  childTest<-testtree$edge[,2]
+  
+  for(i in 1:length(childRef)){
+    #don´t use branch if leading to outgroup
+    if(!childRef[i]==which(reftree$tip.label==outgroup)){
+      refVector<-list.descendents.of(reftree,childRef[i])
+      if(!is.na(refVector)) {              
+        refNames<-reftree$tip.label[refVector]
+        refNames<-sort(refNames)
+        
+        for(j in 1:length(childTest)){
+          testVector<-list.descendents.of(testtree,childTest[j])
+          if(!is.na(testVector)){
+            testNames<-testtree$tip.label[testVector]
+            testNames<-sort(testNames)
+            if(all(testNames==refNames)){
+              BrlenCompMatrix[i,1]<-reftree$edge.length[i]
+              BrlenCompMatrix[i,2]<-testtree$edge.length[j]
+              j=length(testtree$edge)
+            }
+          }
+        }
+      }          
+    }        
+  } 
+  #return matrix WITH na´s
+  return(BrlenCompMatrix)     
+}
+
+
+list.descendents.of<-function(tree,nodeIndex){
+  if(is.na(nodeIndex)) return(NA)
+  if(nodeIndex<1) return(NA)
+  
+  parent<-tree$edge[,1]
+  child<-tree$edge[,2]
+  root<-as.integer(parent[!match(parent, child, 0)][1]) #match gives the positions at which the entries of the parent vector occur in the child vector. If =0, then no match and =root node
+  tips<-child[is.na(!match(child,parent))]
+  
+  #if it is a tip
+  if(length(which(tips==nodeIndex))>0){
+    return(nodeIndex)
+  }
+  
+  is.desc<-c(rep(FALSE,length(tips)))
+  
+  for (i in 1:length(tips)){
+    index<-tips[i]
+    while(index!=root){
+      index<-parent[child==index]
+      if(index==nodeIndex){
+        is.desc[i]=TRUE
+        index<-root
+      }
+    }
+  }
+  return(tips[is.desc])
+}
+
+
+
+
+#Only the function definitions were kept from the `ronquist.R`, command lines were as follow:
+#Importing nonclock and strictclock trees
+tree1<-read.nexus("nonclock.con.tre")
+tree2<-read.nexus("strictclock.con.tre")
+#Comparing branch lengths from both trees, the function was defined in ronquist.R modified script
+BrlensMatrix<-compare.branches(tree1,tree2,outgroup="Acyrthosiphon_pisum")
+BrlensMatrix2<-na.omit(BrlensMatrix)
+#Histograms of branch length distribution
+layout(matrix(1:2,1,2))
+hist(BrlensMatrix2[,1],main="non-clock branch lengths",col="grey",breaks=20)
+hist(BrlensMatrix2[,2],main="strict-clock branch lengths",col="grey",breaks=20)
+#plot of nonclock tree branch length against strict clock tree
+plot(BrlensMatrix2[,2],BrlensMatrix2[,1],main="comparison of clock versus non-clock branch lengths",xlab="strict-clock brlens",ylab="non-clock brlens",xlim=c(0,max(BrlensMatrix2)),ylim=c(0,max(BrlensMatrix2)))
+#calculating regression both tree branch lenghts
+regression<-lm(BrlensMatrix2[,1]~BrlensMatrix2[,2]-1)
+#adding regression line on plot
+abline(coef=c(0,regression$coefficients))
+abline(coef=c(0,1),col="red")
+
+#calculate variance between clock and non-clock branches
+obsVariance<-c(rep(NA,length(BrlensMatrix2[,2])))
+for (i in 1:length(BrlensMatrix2[,2])){
+  obsVariance[i]<-BrlensMatrix2[i,1]-BrlensMatrix2[i,2]
+  obsVariance[i]<-obsVariance[i]^2
+}
+#Plotting variance
+plot(BrlensMatrix2[,2],obsVariance,main="variance in branch lengths",xlab="t[i]",ylab="(b[i]-t[i])^2")
+regression2<-lm(obsVariance~BrlensMatrix2[,2]-1)
+abline(coef=c(0,regression2$coefficients))
+regression2$coefficients
+
+#take slope as median -> calculate mean (=rate) for exp distr of IBR model
+as.numeric(regression2$coefficients)/log(2)
+
+a<-list.descendents.of(tree1,tree1$edge[which(obsVariance==max(obsVariance))+1,2])  #+1 because root branch was not sampled by function ?compare.branches?!
+tree1$tip.label[a]
+
+```
+
+
+##References
+Ronquist et al
+Vea and Grimaldi
