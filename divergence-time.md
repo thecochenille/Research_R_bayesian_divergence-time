@@ -285,7 +285,7 @@ prset clockratepr = lognorm(-6.060527447,0.051884487);
 
 prset topologypr=constraints(root,coccoidea_wfossils);
 
-[removed according to one of three types of analyses TD-A, TD-B or TD-C]
+[setup for prior with offset distribution but change accordingly to one of three types of analyses TD-offset, TD-noroot or TD-lognormal]
 calibrate root=offsetexp(240,250);
 [calibrate root=lognormal(240,10);]
 
