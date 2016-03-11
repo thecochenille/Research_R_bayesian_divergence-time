@@ -1,6 +1,6 @@
 ------------------------------
 # Analyses worflow for the manuscript Vea and Grimaldi: 
-##APutting scales into evolutionary time: the divergence of major scale insect lineages (Hemiptera) predates the radiation of modern angiosperm hosts
+##Putting scales into evolutionary time: the divergence of major scale insect lineages (Hemiptera) predates the radiation of modern angiosperm hosts
 
 
 ####Scientific Reports (in press.)
