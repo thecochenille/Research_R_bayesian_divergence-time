@@ -48,4 +48,4 @@ This repository includes the comman lines used for MrBayes analyses (divergence 
 Although each file can be viewed individually by following the manuscript and EMS, the best way to examine the worklow of the analyses is to start reading [divergence-time.md](https://github.com/zourloubidou/Coccomorpha-divergence-time/blob/master/divergence-time.md).
 
 #Reference
-Vea I. and D. Grimaldi. (submitted) A time-scale for scales: the divergence of major lineages of Coccomorpha (Insecta: Hemiptera) was much earlier than that of their modern angiosperm hosts.
+Vea I. and D. Grimaldi. (2016) Putting scales into evolutionary time: the divergence of major scale insect lineages (Hemiptera) predates the radiation of modern angiosperm hosts. Scientific reports
