@@ -2,6 +2,7 @@
 
 #Title: A time-scale for scales: the divergence of major lineages of Coccomorpha (Insecta: Hemiptera) was much earlier than that of their modern angiosperm hosts
 
+
 ---
 
 
@@ -220,10 +221,13 @@ Two additional analyses were performed by changing the root prior as follow:
 ###Total evidence (tip-dating) analyses
 Four total evidence analyses were performed with 43 prior ages set as fixed for fossil terminals (see Table S2 for fossil ages), as well as the alternative options:
 
-1. TD-offsetexp: 43 fixed age priors at fossil tips, and a node prior set at the root following an off set exponential distribution
 
+####Analyses from Ronquist et al. approach
+1. TD-offsetexp: 43 fixed age priors at fossil tips, and a node prior set at the root following an off set exponential distribution
 2. TD-noroot: 43 fixed age priors at fossil tips only
 3. TD-lognormal: 43 fixed age priors at fossil tips, and a node prior set at the root following a lognormal distribution
+
+
 
 
 The following command lines were added, replacing the node calibration settings from above, with last two command lines removed according to analysis:
@@ -290,6 +294,87 @@ calibrate root=offsetexp(240,250);
 [calibrate root=lognormal(240,10);]
 
 ```
+
+####Analyses from Heath et al. and Zhang et al. approach
+See Table 1 in main text for parameter changes.
+1.TD-A
+2.TD-B
+3.TD-C
+4.TD-D
+5.TD-E
+6.TD-F
+7.TD-G
+8.TD-H
+9.TD-I
+
+For uniform distribution priors:
+
+```
+calibrate   Albicoccus_dimai=fixed(98)
+  			Apticoccus_minutus=fixed(135) 
+			Apticoccus_fortis=fixed(135) 	
+			Arnoldus_capitatus=fixed(45) 
+			Burmacoccus_danyi=fixed(98) 
+			Cretorthezia_hammanaica=fixed(135) 
+			Eomatsucoccus_casei=fixed(92) 
+			Electrococcus_canadensis=fixed(100) 
+			Grimaldiellia_gragaria=fixed(92) 
+			Grohnus_eichmanni=fixed(45) 
+			Inka_minuta=fixed(85) 
+			Jersicoccus_kurthi=fixed(92)
+			Kuenowicoccus_pietzeniukae=fixed(45) 
+			Kukaspis_usingeri=fixed(100) 
+			Lebanococcus_longiventris=fixed(135) 
+			Hodgsonicoccus_patefactus=fixed(135) 
+			Xiphos_vani=fixed(135) 
+			Apticoccus_longitenuis=fixed(135) 
+			Marmyan_barbarae=fixed(98)
+			Palaeosteingelia_acrai=fixed(135) 
+			Palaeotupo_danielae=fixed(135) 
+			Palaeonewsteadia_huaniae=fixed(45) 
+			Pennygullania_electrina=fixed(135) 
+			Pityococcus_moniliformalis=fixed(45) 
+			Protorthezia_aurea=fixed(45) 
+			Serafinus_acupiterus=fixed(45)
+			Solicoccus_nascimbenei=fixed(92) 
+			Steingelia_cretacea=fixed(92)
+			Heteromargarodes_hukamsinghi=fixed(50) 
+			Normarkicoccus_cambayae=fixed(50)
+			Kozarius_perpetuus=fixed(98) 
+			Kozarius_achronus=fixed(98) 
+			Gilderius_eukrinops=fixed(98) 
+			Pseudoweitschatus_audebertis=fixed(98) 
+			Rosahendersonia_prisca=fixed(98) 
+			Magnilens_glaesaria=fixed(98) 
+			Pedicellicoccus_marginatus=fixed(98) 
+			Alacrena_peculiaris=fixed(98) 
+			Williamsicoccus_megalops=fixed(135)
+			undescribed_ARC60_1=fixed(100) 
+			Turonicoccus_beardlseyi=fixed(92)
+			Weitschatus_stigmatus=fixed(45) 
+			Xylococcus_grabenhorstii=fixed(45)
+			;   
+
+
+[Presettings for the total evidence analysis]
+
+prset brlenspr=clock:uniform;
+prset clockvarpr=igr;	
+prset igrvarpr=exp(25.64493156); [ 1/x with x=median variance obtained from R script analysis comparing non clock and strict clock branch lengths]
+prset nodeagepr = calibrated;
+prset clockratepr = lognorm(-6.060527447,0.051884487); 
+
+prset topologypr=constraints(root,coccoidea_wfossils);
+
+[setup for prior with offset distribution but change accordingly to one of three types of analyses TD-offset, TD-noroot or TD-lognormal]
+calibrate root=offsetexp(240,250);
+[calibrate root=lognormal(240,10);]
+
+```
+
+
+
+
 MCMC for Node-dating and Tip-dating analyses
 
 ```
