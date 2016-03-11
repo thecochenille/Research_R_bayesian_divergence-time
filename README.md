@@ -3,7 +3,7 @@
 ##Putting scales into evolutionary time: the divergence of major scale insect lineages (Hemiptera) predates the radiation of modern angiosperm hosts
 
 
-####Scientific Reports (in press.)
+####Scientific Reports 6, 23487 doi: 10.1038/srep23487
 ####Repository status: public
 
 -----------------------------
@@ -49,4 +49,4 @@ This repository includes the comman lines used for MrBayes analyses (divergence 
 Although each file can be viewed individually by following the manuscript and EMS, the best way to examine the worklow of the analyses is to start reading [divergence-time.md](https://github.com/zourloubidou/Coccomorpha-divergence-time/blob/master/divergence-time.md).
 
 #Reference
-Vea I. and D. Grimaldi. (2016) Putting scales into evolutionary time: the divergence of major scale insect lineages (Hemiptera) predates the radiation of modern angiosperm hosts. Scientific reports
+Vea I. and D. Grimaldi. (2016) Putting scales into evolutionary time: the divergence of major scale insect lineages (Hemiptera) predates the radiation of modern angiosperm hosts. Scientific reports 6, 23487 doi: 10.1038/srep23487
