@@ -394,7 +394,7 @@ end;
 
 All trees obtained from MrBayes analyses are listed in README and are found in the repository as nexus files (can be viewed with Figtree.)
 
-Link to LTT plot workflow [here](https://github.com/zourloubidou/Coccomorpha-divergence-time/blob/master/LLTplots.md)
+Link to LTT plot workflow [here](https://github.com/zourloubidou/Coccomorpha-divergence-time/blob/master/Plots.md)
 
 
 
