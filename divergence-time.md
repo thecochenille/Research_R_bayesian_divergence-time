@@ -358,11 +358,13 @@ calibrate   Albicoccus_dimai=fixed(98)
 
 [Presettings for the total evidence analysis]
 
-prset brlenspr=clock:uniform;
+prset brlenspr=clock:fossilized;
 prset clockvarpr=igr;	
 prset igrvarpr=exp(25.64493156); [ 1/x with x=median variance obtained from R script analysis comparing non clock and strict clock branch lengths]
 prset nodeagepr = calibrated;
 prset clockratepr = lognorm(-6.060527447,0.051884487); 
+prset samplestrat = diversity
+prset sampleprob = 0.01 [or 0.005]
 
 prset topologypr=constraints(root,coccoidea_wfossils);
 
